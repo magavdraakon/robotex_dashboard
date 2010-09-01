@@ -1,0 +1,22 @@
+<h1> states for <%= @robot.name %></h1>
+
+<table>
+  <th>Task</th>
+  <th>Progress</th>
+  <th>Week: <% n2dal=Time.now %>
+            <%= n2dal.strftime('%W') %></th>
+
+    <% @robot.states.each do |state| %>
+       <% if state.week_no.to_s==n2dal.strftime('%W') %>
+         <tr>
+          <% @tasks.each do |task| %>
+            <%if task.id==state.task_id%>
+              <td><%= task.name %> </td> 
+            <% end %>
+          <% end %>
+         <td><%= state.progress %> </td> 
+         </tr>
+      <% end %>
+  <% end %>
+
+</table>
