@@ -13,7 +13,7 @@
 <% @robots.each do |robot| %>
   <tr>
     <td><%= robot.name %></td>
-    <td><%= robot.homepage %></td>
+    <td><%= link_to(robot.homepage,robot.homepage) %></td>
     <td><%= robot.content %></td>
     <td><%= link_to 'Show', robot %></td>
     <td><%= link_to 'Edit', edit_robot_path(robot) %></td>
@@ -25,3 +25,4 @@
 <br />
 
 <%= link_to 'New Robot', new_robot_path %>
+<%= link_to('Back to menu',:action=>'index', :controller=>'home') %>
