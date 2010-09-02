@@ -13,6 +13,28 @@ class RobotsController < ApplicationController
   def state_of
     @robot = Robot.find(params[:id])
     @tasks=Task.find(:all)
+    @all_weeks=State.find( :all, :select => ' DISTINCT week_no' )
+    if params[:n2dal]==nil     
+     @week_is= Time.now.strftime('%W') 
+    else
+     @week_is= params[:n2dal][:week_no]
+   end
+  end
+  
+  def state_edit
+    @state = State.find(params[:id])
+    @tasks=Task.find(:all)
+  end
+
+  def state_update
+    @state=State.find(params[:id])
+    parameetrid=params[:update]
+    if @state.update_attributes(parameetrid)
+      redirect_to :action=>'state_of', :id=> @state.robot_id
+    else 
+      render :action=>'state_edit'
+    end
+    
   end
   
   # GET /robots/1

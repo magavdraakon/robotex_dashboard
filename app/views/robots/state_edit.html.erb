@@ -1,0 +1,18 @@
+<h1>   
+<% @tasks.each do |task| %>
+  <%if task.id==@state.task_id %>
+    <%= task.name %>
+  <%end%>
+<%end%>
+</h1>
+
+<%form_tag(:action=>'state_update', :id=>@state.id) do%>
+  Robot: <%=Robot.find(@state.robot_id).name%>
+  <br/>
+  Progress <%= text_field(:update, :progress, :value=> @state.progress)%>
+  <br/>
+ <%=submit_tag('edit')%>
+<%end%>
+
+<%= link_to('Back to states', :action=>'state_of', :id=>@state.robot_id)  %> 
+<%= link_to('Back to robots',:action=>'index', :controller=>'robots') %>

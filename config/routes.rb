@@ -4,6 +4,8 @@ RobotexDashboard::Application.routes.draw do
   resources :robots
 
   match "robots/state_of/:id"=>"robots#state_of"
+  match "robots/state_edit/:id"=>"robots#state_edit"
+  match "robots/state_update/:id"=>"robots#state_update"
   
   get "home/index"
   root :to => "home#index"
