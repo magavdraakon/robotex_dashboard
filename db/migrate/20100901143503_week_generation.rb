@@ -7,8 +7,7 @@ class WeekGeneration < ActiveRecord::Migration
         end
      end
   end
-   # State.create(:robot_id=> :task_id=> :week_no => )
-
+  # State.create(:robot_id=> :task_id=> :week_no => )
   end
 
   def self.down

@@ -10,11 +10,15 @@ class RobotsController < ApplicationController
     end
   end
 
+  def state_of
+    @robot = Robot.find(params[:id])
+    @tasks=Task.find(:all)
+  end
+  
   # GET /robots/1
   # GET /robots/1.xml
   def show
     @robot = Robot.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @robot }

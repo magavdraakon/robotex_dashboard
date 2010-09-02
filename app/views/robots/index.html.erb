@@ -16,6 +16,7 @@
     <td><%= link_to(robot.homepage,robot.homepage) %></td>
     <td><%= robot.content %></td>
     <td><%= link_to 'Show', robot %></td>
+    <td><%= link_to('States', :controller=>'robots', :action=>'state_of', :id=>robot.id) %></td>
     <td><%= link_to 'Edit', edit_robot_path(robot) %></td>
     <td><%= link_to 'Destroy', robot, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

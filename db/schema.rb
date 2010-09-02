@@ -10,12 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100901122902) do
+ActiveRecord::Schema.define(:version => 20100901143503) do
 
   create_table "robots", :force => true do |t|
     t.string   "name"
     t.string   "homepage"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "states", :force => true do |t|
+    t.integer  "robot_id"
+    t.integer  "task_id"
+    t.float    "progress"
+    t.integer  "week_no"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
