@@ -1,0 +1,38 @@
+<h1>   
+    <%= @robot.name %>
+</h1>
+<%#all_states=[]%>
+Editing week: <%=@week_is%>
+<%form_tag(:action=>'state_update_all') do%>
+<table>
+  <% @robot.states.each do |state| %>
+      <% if state.week_no.to_s==@week_is %>
+      <tr>
+      <%#all_states<<state%>
+          <% @tasks.each do |task| %>
+            <%if task.id==state.task_id%>
+            <td> <%=label_tag(task.name)%> </td>
+            <% end %>
+          <% end %>
+          <td> <%= text_field_tag('update[]', 'progress[]' ,:value=>state.progress)  %>  </td>
+<%# testing='' %>
+ <%#testing<<state.progress.to_s<<'&'<<state.id.to_s if state.progress!=nil
+ %>
+<td> <%= text_field_tag('status_info[]', 'state[]' ,:value=>state.id, :class=>'hidden_field')  %>  </td>      </tr>
+      <% end %>
+  <% end %>
+</table>
+ <%=submit_tag('Edit')%>
+<%end%>
+
+<%= link_to('Back to states', :action=>'state_of', :id=>@robot.id)  %> 
+<%= link_to('Back to robots',:action=>'index', :controller=>'robots') %>
+
+<%# form_tag(:action => 'state_update_all') do%>
+<%# all_states.each do |state|%>
+ 
+    <%# text_field_tag(:update, :progress, :value=>state.progress, :id=>state.id) %><br/>
+ 
+<%# end %>
+<%# submit_tag('Update') %>
+<%# end %>

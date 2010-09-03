@@ -11,7 +11,7 @@
   <br/>
   Progress <%= text_field(:update, :progress, :value=> @state.progress)%>
   <br/>
- <%=submit_tag('edit')%>
+ <%=submit_tag('Edit')%>
 <%end%>
 
 <%= link_to('Back to states', :action=>'state_of', :id=>@state.robot_id)  %> 

@@ -5,9 +5,15 @@ RobotexDashboard::Application.routes.draw do
 
   match "robots/state_of/:id"=>"robots#state_of"
   match "robots/state_edit/:id"=>"robots#state_edit"
+   match "robots/state_edit_all/:id"=>"robots#state_edit_all"
+ 
   match "robots/state_update/:id"=>"robots#state_update"
+  
   match "home/week/:id"=>"home#week"
   match "home/index"=>"home#index"
+  
+  match "robots/state_update_all/:id"=>"robots#state_update_all"
+  
   
   get "home/index"
   root :to => "home#index"
