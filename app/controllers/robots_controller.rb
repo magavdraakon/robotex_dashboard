@@ -25,17 +25,39 @@ class RobotsController < ApplicationController
     @state = State.find(params[:id])
     @tasks=Task.find(:all)
   end
+  
+  def state_edit_all
+    @robot=Robot.find(params[:id])
+    if params[:week_no]==nil     
+     @week_is= Time.now.strftime('%W') 
+    else
+     @week_is=params[:week_no]
+    end
+    @tasks=Task.find(:all)
+  end
 
   def state_update
     @state=State.find(params[:id])
-    parameetrid=params[:update]
-    if @state.update_attributes(parameetrid)
+    if @state.update_attributes(params[:update])
       redirect_to :action=>'state_of', :id=> @state.robot_id
     else 
       render :action=>'state_edit'
     end
-    
   end
+  
+  def state_update_all
+    @states=params[:status_info]
+    @progress=params[:update]
+      i=0
+      @states.each do |s|
+        @st=State.find(s)
+        @st.progress=@progress[i]
+        i+=1
+        @st.save
+      end
+      redirect_to :action=>'state_of', :id=> params[:id]
+  end
+
   
   # GET /robots/1
   # GET /robots/1.xml
