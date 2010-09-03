@@ -11,7 +11,7 @@
   <p>Hetkel on valitud nädal - <%= @week_n %> </p>
   <p>Vali nädal
 <% form_tag(:action=>'index') do %>
-   <%= select(:n2dal,'week', week_list, {:prompt=>'Choose week ...'} )%>
+   <%= select(:n2dal,:week_no, week_list, {:prompt=>'Choose week ...'} )%>
    <%= submit_tag('Go')%>
 <% end %>
 </p>
@@ -25,17 +25,30 @@
 </tr>
 
 
-
+<% 
+first=[]
+second=[]
+third=[]
+@states.each do |state| 
+  if state.robot_id==1
+    first[state.task_id]=state
+    end
+  if state.robot_id==2
+    second[state.task_id]=state
+  end
+  if  state.robot_id==3
+    third[state.task_id]=state
+  end
+end%>
+<%i=0%>
 <% @tasks.each do |task| %>
 <tr>
-  <td><%= task.name -%></td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
+<td><%=i=task.id%>. <%= task.name -%></td>
+<td><%=first[i].progress if first[i]!=nil%></td>
+<td><%=second[i].progress if second[i]!=nil%></td>
+<td><%=third[i].progress if third[i]!=nil%></td>
 </tr>
 <% end %>
-
-
 </table>
 
     
