@@ -23,6 +23,15 @@ class RobotsController < ApplicationController
   
   def state_edit
     @state = State.find(params[:id])
+    last_week=@state.week_no.to_i-1
+    if last_week>34
+      @last_state=State.find(:all, :conditions => {
+        :robot_id => @state.robot_id, 
+        :task_id=> @state.task_id, 
+        :week_no=> last_week})
+      else 
+        @last_state =nil
+    end
     @tasks=Task.find(:all)
   end
   
@@ -39,9 +48,13 @@ class RobotsController < ApplicationController
   def state_update
     @state=State.find(params[:id])
     if @state.update_attributes(params[:update])
+      flash[:notice]="editing successful"
       redirect_to :action=>'state_of', :id=> @state.robot_id
     else 
-      render :action=>'state_edit'
+      flash[:error]="value must be between 0 and 1"
+      @tasks=Task.find(:all)
+      @state = State.find(params[:id])
+      render :action=>'state_edit', :id=>@state.id
     end
   end
   

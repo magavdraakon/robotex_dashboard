@@ -3,9 +3,18 @@
 </h1>
 <%#all_states=[]%>
 Editing week: <%=@week_is%>
-<%form_tag(:action=>'state_update_all') do%>
+ <%last_week= @week_is.to_i-1%>
+<%last_state=''%>
+<%= form_tag(:action=>'state_update_all') do%>
 <table>
+<th>Task</th> 
+<% if last_week>34 %><th style="color:#c0c0c0;">Last week</th> <%end%>
+<th>week  <%=@week_is%></th>
   <% @robot.states.each do |state| %>
+    
+      <% if state.week_no.to_s==last_week.to_s %>
+        <%last_state=state.progress%>
+     <%end%>
       <% if state.week_no.to_s==@week_is %>
       <tr>
       <%#all_states<<state%>
@@ -14,25 +23,39 @@ Editing week: <%=@week_is%>
             <td> <%=label_tag(task.name)%> </td>
             <% end %>
           <% end %>
+       <% if last_week>34 %> <td style="color:#c0c0c0;"><%=last_state%></td><%end%>
           <td> <%= text_field_tag('update[]', 'progress[]' ,:value=>state.progress)  %>  </td>
-<%# testing='' %>
- <%#testing<<state.progress.to_s<<'&'<<state.id.to_s if state.progress!=nil
- %>
-<td> <%= text_field_tag('status_info[]', 'state[]' ,:value=>state.id, :class=>'hidden_field')  %>  </td>      </tr>
+
+<td> <%= text_field_tag('status_info[]', 'state[]' ,:value=>state.id, :class=>'hidden_field')  %>  </td>    
+  </tr>
       <% end %>
   <% end %>
+
 </table>
  <%=submit_tag('Edit')%>
 <%end%>
 
+  <% if last_week>34 %> 
+<%= form_tag(:action=>'state_update_all') do%>
+  <% @robot.states.each do |state| %>
+    
+      <% if state.week_no.to_s==last_week.to_s %>
+        <%last_state=state.progress%>
+     <%end%>
+      <% if state.week_no.to_s==@week_is %>
+          <td> <%= text_field_tag('update[]', 'progress[]' ,:value=>last_state, :class=>'hidden_field')  %>  </td>
+<td> <%= text_field_tag('status_info[]', 'state[]' ,:value=>state.id, :class=>'hidden_field')  %>  </td>    
+  </tr>
+      <% end %>
+  <% end %>
+<%=label_tag('')%>
+</table>
+ <%=submit_tag('copy last week')%>
+<%end%>
+ <%end%>
+
+
 <%= link_to('Back to states', :action=>'state_of', :id=>@robot.id)  %> 
 <%= link_to('Back to robots',:action=>'index', :controller=>'robots') %>
 
-<%# form_tag(:action => 'state_update_all') do%>
-<%# all_states.each do |state|%>
- 
-    <%# text_field_tag(:update, :progress, :value=>state.progress, :id=>state.id) %><br/>
- 
-<%# end %>
-<%# submit_tag('Update') %>
-<%# end %>
+

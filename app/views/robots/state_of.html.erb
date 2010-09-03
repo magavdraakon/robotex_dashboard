@@ -1,6 +1,8 @@
 <h1> States for '<%= @robot.name %>'</h1>
+
 <% total_progress=0 
-week_list=[] %>
+week_list=[]
+total_points=0%>
 <% @all_weeks.each do |s| %>
   <%week_list << s.week_no%>
   <%end%>
@@ -8,8 +10,8 @@ week_list=[] %>
 <table>
   <th>Task</th>
   <th>Progress</th>
-  <th> <%form_tag(:action=>'state_of', :id=>@robot.id) do%>
-         <%= select(:n2dal,:week_no,week_list, {:prompt=>'Viewing week:'+@week_is} )%>
+  <th> <%= form_tag(:action=>'state_of', :id=>@robot.id) do%>
+         <%= select(:n2dal, :week_no ,week_list, {:prompt=>'Viewing week:'+@week_is} )%>
          <%=submit_tag('Go')%>
       <%end%>
   </th>
@@ -22,7 +24,8 @@ week_list=[] %>
             <% end %>
           <% end %>
          <td><%= state.progress %> </td> 
-             <%total_progress+=state.progress if state.progress!=nil%>
+             <%total_progress+=state.progress if state.progress!=nil
+            total_points+=1%>
          <td><%= link_to('Edit', :action=>'state_edit', :id=>state.id)  %> </td>
          </tr>
       <% end %>
@@ -32,10 +35,10 @@ week_list=[] %>
       <b>Total:</b>
     </td> 
     <td>
-      <%=total_progress%>
+    <%=total_progress%> <%='('<<((100*total_progress)/total_points).round(2).to_s<<'%)' if total_progress!=0%>
     </td>
     <td>
-    <%form_tag(:action=>'state_edit_all', :id=>@robot.id) do%>
+    <%= form_tag(:action=>'state_edit_all', :id=>@robot.id) do%>
       <%=hidden_field_tag(:week_no , @week_is )%>
       <%=submit_tag('Edit all')%>
    <%end%>

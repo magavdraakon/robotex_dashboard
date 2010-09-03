@@ -10,6 +10,11 @@
   Robot: <%=Robot.find(@state.robot_id).name%>
   <br/>
   Progress <%= text_field(:update, :progress, :value=> @state.progress)%>
+  <%if @last_state!=nil %>
+     <% @last_state.each do |l| %>
+       (Last week: <%=l.progress %>)
+      <%end%>
+  <%end%>
   <br/>
  <%=submit_tag('Edit')%>
 <%end%>
