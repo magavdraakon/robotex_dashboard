@@ -8,13 +8,35 @@
   <% week_list << s.week_no %>
   <% end %>
 
-<p>Vali nädal</p>
+  <p>Hetkel on valitud nädal - <%= @week_n %> </p>
+  <p>Vali nädal
 <% form_tag(:action=>'index') do %>
-   <%= select(:n2dal,:week_no,week_list, {:prompt=>'Week ...'} )%>
+   <%= select(:n2dal,'week', week_list, {:prompt=>'Choose week ...'} )%>
    <%= submit_tag('Go')%>
 <% end %>
+</p>
 
-<%= @week_n %>
+<table>
+<tr>
+  <th>Task</th>
+    <% @robots.each do |robot| %>
+      <th><%= robot.name %></th>
+    <% end %>
+</tr>
+
+
+
+<% @tasks.each do |task| %>
+<tr>
+  <td><%= task.name -%></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<% end %>
+
+
+</table>
 
     
 <hr/>
