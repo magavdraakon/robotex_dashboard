@@ -1,6 +1,6 @@
 class TaskList < ActiveRecord::Migration
   def self.up
-Task.create(:name =>'﻿Teamil on nimi ja robotil on nimi', :display_order =>1)
+Task.create(:name =>'Teamil on nimi ja robotil on nimi', :display_order =>1)
 Task.create(:name =>'Võistlusmäärused on läbi loetud', :display_order =>2)
 Task.create(:name =>'Teamil on isiklik nimeline karp oma asjade hoidmiseks', :display_order =>3)
 Task.create(:name =>'Teamil on teamisisene regulaarne kokkusaamine paigas', :display_order =>4)
