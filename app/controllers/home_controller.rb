@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   def index
-    @week_n=params[:n2dal][:week_no] || @week_n=Time.now.strftime('%W')
+    if params[:n2dal]==nil then
+      @week_n=Time.now.strftime('%W')
+    elsif  
+      @week_n=params[:n2dal][:week_no] || @week_n=Time.now.strftime('%W')
+    end
     @robots = Robot.find(:all)
     #@tasks=Task.find(:conditions => ["week_no == ?", 35 ], :include => :robot:all)
     @tasks=Task.find(:all)
