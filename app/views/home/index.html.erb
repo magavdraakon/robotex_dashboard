@@ -1,4 +1,4 @@
-<h1>Robotex progress dashboard</h1>
+<h1>Robotex progress - Nädal  <%= @week_n %></h1>
 
   <p><%= link_to "Robots", robots_path %></p>
   <p><%= link_to "Tasks", tasks_path %></p>
@@ -8,7 +8,6 @@
   <% week_list << s.week_no %>
   <% end %>
 
-  <p>Hetkel on valitud nädal - <%= @week_n %> </p>
   <p>Vali nädal
 <% form_tag(:action=>'index') do %>
    <%= select(:n2dal,:week_no, week_list, {:prompt=>'Choose week ...'} )%>
@@ -29,6 +28,7 @@
 first=[]
 second=[]
 third=[]
+fourth=[]
 @states.each do |state| 
   if state.robot_id==1
     first[state.task_id]=state
@@ -39,6 +39,9 @@ third=[]
   if  state.robot_id==3
     third[state.task_id]=state
   end
+  if  state.robot_id==4
+    fourth[state.task_id]=state
+  end
 end%>
 <%i=0%>
 <% @tasks.each do |task| %>
@@ -47,6 +50,7 @@ end%>
 <td><%=first[i].progress if first[i]!=nil%></td>
 <td><%=second[i].progress if second[i]!=nil%></td>
 <td><%=third[i].progress if third[i]!=nil%></td>
+<td><%=fourth[i].progress if fourth[i]!=nil%></td>
 </tr>
 <% end %>
 </table>
