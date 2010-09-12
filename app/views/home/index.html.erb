@@ -11,9 +11,10 @@
 
 
 <% form_tag(:action=>'index') do %>
-<%= link_to "Robots", robots_path %> | <%= link_to "Tasks", tasks_path %> |
-  Vali nädal <%= select(:n2dal,:week_no, week_list, {:prompt=>'Choose week ...'} )%>
+<%= link_to "Robots", robots_path %> | <%= link_to "Tasks", tasks_path %> | Vali nädal
+<%= select(:n2dal,:week_no, week_list, {:prompt=>'Choose week ...'} )%>
 <%= submit_tag('Go') %>
+
 <%end%>
 
 <table>
