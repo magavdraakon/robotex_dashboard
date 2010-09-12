@@ -1,19 +1,20 @@
 <h1>Robotex progress - Nädal  <%= @week_n %></h1>
+<% 
+  week_list=[] 
+  @all_weeks.each do |s| 
+    week_list << s.week_no 
+  end 
+%>
 
-  <p><%= link_to "Robots", robots_path %></p>
-  <p><%= link_to "Tasks", tasks_path %></p>
 
-  <% week_list=[] %>
-  <% @all_weeks.each do |s| %>
-  <% week_list << s.week_no %>
-  <% end %>
 
-  <p>Vali nädal
+
+
 <% form_tag(:action=>'index') do %>
-   <%= select(:n2dal,:week_no, week_list, {:prompt=>'Choose week ...'} )%>
-   <%= submit_tag('Go')%>
-<% end %>
-</p>
+<%= link_to "Robots", robots_path %> | <%= link_to "Tasks", tasks_path %> |
+  Vali nädal <%= select(:n2dal,:week_no, week_list, {:prompt=>'Choose week ...'} )%>
+<%= submit_tag('Go') %>
+<%end%>
 
 <table>
 <tr>
@@ -29,23 +30,34 @@ first=[]
 second=[]
 third=[]
 fourth=[]
+
+fi_sum=0.0
+s_sum=0.0
+t_sum=0.0
+fo_sum=0.0
+
 @states.each do |state| 
   if state.robot_id==1
     first[state.task_id]=state
+    fi_sum+=state.progress.to_f
     end
   if state.robot_id==2
     second[state.task_id]=state
+    s_sum+=state.progress.to_f
   end
   if  state.robot_id==3
     third[state.task_id]=state
+    t_sum+=state.progress.to_f
   end
   if  state.robot_id==4
     fourth[state.task_id]=state
+    fo_sum+=state.progress.to_f
   end
 end%>
 <%i=0%>
 <% @tasks.each do |task| %>
-<tr>
+<% row_color=cycle("B7CED5","ffffff")%>
+<tr style="background:#<%= row_color%>;">
 <td><%=i=task.id%>. <%= task.name -%></td>
 <td><%=first[i].progress if first[i]!=nil%></td>
 <td><%=second[i].progress if second[i]!=nil%></td>
@@ -53,16 +65,16 @@ end%>
 <td><%=fourth[i].progress if fourth[i]!=nil%></td>
 </tr>
 <% end %>
+<tr>
+<td>Progress</td>
+<td style="text-align:center;"><%= fi_sum %> <%= "("<<((fi_sum*100)/i).round(2).to_s<<"%)" if fi_sum!=0%></td>
+<td style="text-align:center;"><%= s_sum %> <%= "("<<((s_sum*100)/i).round(2).to_s<<"%)" if s_sum!=0%></td>
+<td style="text-align:center;"><%= t_sum %> <%= "("<<((t_sum*100)/i).round(2).to_s<<"%)" if t_sum!=0%></td>
+<td style="text-align:center;"><%= fo_sum %> <%= "("<<((fo_sum*100)/i).round(2).to_s<<"%)" if fo_sum!=0%></td>
+
+</tr>
 </table>
 
     
-<hr/>
-<p><a href="http://robot.itcollege.ee">Estonian IT College - Robotics Club - 2010 Tallinn, Estonia</a>
-<p><%= link_to "uurida graafikuid - progressi tuleb visualiseerida", "http://www.idolhands.com/ruby-on-rails/gems-plugins-and-engines/graphing-for-ruby-on-rails-with-seer"%></p>
-<p>
-<%= link_to "uurida veel  graafikuid", "http://edgeguides.rubyonrails.org/getting_started.html"%>
-<p><%= link_to "Ruby raamat:)","http://mislav.uniqpath.com/poignant-guide/book/chapter-3.html"%>
-<p><%= link_to "PDF raport asjast:)","http://thinkrelevance.com/blog/2010/06/15/rethinking-pdf-creation-in-ruby.html"%>
-<p><%= link_to "The Dev Show","http://5by5.tv/devshow"%>
 
 
