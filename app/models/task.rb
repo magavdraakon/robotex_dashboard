@@ -8,7 +8,7 @@ class Task < ActiveRecord::Base
       for week_n in 36..48
         s=State.new
         s.robot_id=robot.id
-        s.task_id=self.if
+        s.task_id=self.id
         s.progress=0
         s.week_no=week_n
         s.save
