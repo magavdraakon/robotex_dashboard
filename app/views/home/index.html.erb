@@ -1,4 +1,5 @@
-<h1>Robotex progress - Nädal  <%= @week_n %></h1>
+
+<h1>Robotex progress - Aasta <%=@year_no%>, Nädal  <%= @week_no %></h1>
 <% 
   week_list=[] 
   @all_weeks.each do |s| 
@@ -11,67 +12,35 @@
 
 
 <% form_tag(:action=>'index') do %>
-<%= link_to "Robots", robots_path %> | <%= link_to "Tasks", tasks_path %> | Vali nädal
-<%= select(:n2dal,:week_no, week_list, {:prompt=>'Choose week ...'} )%>
-<%= submit_tag('Go') %>
-
+  <%= link_to "Robots", robots_path %> | <%= link_to "Tasks", tasks_path %> | <%= select(:state,:year_no, (2010..Time.now.strftime('%Y').to_i), {:prompt=>'Vali aasta...'} )%><%= select(:state,:week_no, week_list, {:prompt=>'Vali nädal ...'} )%>
+  <%= submit_tag('Go') %>
 <%end%>
 
-<table>
+<table border=1>
 <tr>
   <th>Task</th>
     <% @robots.each do |robot| %>
-      <th><%= robot.name %></th>
+      <th width="100px"><%= robot.name %></th>
     <% end %>
 </tr>
 
 
-<% 
-first=[]
-second=[]
-third=[]
-fourth=[]
-
-fi_sum=0.0
-s_sum=0.0
-t_sum=0.0
-fo_sum=0.0
-
-@states.each do |state| 
-  if state.robot_id==1
-    first[state.task_id]=state
-    fi_sum+=state.progress.to_f
-    end
-  if state.robot_id==2
-    second[state.task_id]=state
-    s_sum+=state.progress.to_f
-  end
-  if  state.robot_id==3
-    third[state.task_id]=state
-    t_sum+=state.progress.to_f
-  end
-  if  state.robot_id==4
-    fourth[state.task_id]=state
-    fo_sum+=state.progress.to_f
-  end
-end%>
 <%i=0%>
 <% @tasks.each do |task| %>
 <% row_color=cycle("B7CED5","ffffff")%>
 <tr style="background:#<%= row_color%>;">
 <td><%=i=task.id%>. <%= task.name -%></td>
-<td><%=first[i].progress if first[i]!=nil%></td>
-<td><%=second[i].progress if second[i]!=nil%></td>
-<td><%=third[i].progress if third[i]!=nil%></td>
-<td><%=fourth[i].progress if fourth[i]!=nil%></td>
+<%@robots.each do |r|%>
+  <td><%=@states[task.id][r.id]%></td>
+<%end%>
+
 </tr>
 <% end %>
-<tr>
+<tr style="font-weight:bold;">
 <td>Progress</td>
-<td style="text-align:center;"><%= fi_sum %> <%= "("<<((fi_sum*100)/i).round(2).to_s<<"%)" if fi_sum!=0%></td>
-<td style="text-align:center;"><%= s_sum %> <%= "("<<((s_sum*100)/i).round(2).to_s<<"%)" if s_sum!=0%></td>
-<td style="text-align:center;"><%= t_sum %> <%= "("<<((t_sum*100)/i).round(2).to_s<<"%)" if t_sum!=0%></td>
-<td style="text-align:center;"><%= fo_sum %> <%= "("<<((fo_sum*100)/i).round(2).to_s<<"%)" if fo_sum!=0%></td>
+<%@robots.each do |r|%>
+  <td><%=@rob[r.id]%> <%= "("<<((@rob[r.id]*100)/i).round(2).to_s<<"%)" if @rob[r.id]!=0%></td>
+<%end%>
 </tr>
 </table>
 

@@ -3,13 +3,12 @@
 <head>
   <title>RobotexDashboard</title>
   <%= stylesheet_link_tag "print", :media => "print"%>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "scaffold", :media=>"screen" %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-<p style="color:red; size:2em;"><%= flash[:error]%></p>
-<p style="color:green; size:2em;"><%= flash[:notice]%></p>
+<p id="notice"><%=raw notice %></p>
 <%= yield %>
 
 </body>

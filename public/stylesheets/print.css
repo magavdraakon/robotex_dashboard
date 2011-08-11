@@ -6,6 +6,8 @@ body, p, ol, ul, td {
   line-height: 12px;
 }
 
+form {display:none;}
+
 pre {
   background-color: #eee;
   padding: 10px;
