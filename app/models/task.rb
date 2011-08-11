@@ -6,7 +6,13 @@ class Task < ActiveRecord::Base
   def add_state
     for robot in Robot.find(:all)
       for week_n in 36..48
-        State.create(:robot_id=>robot.id, :task_id=>self.id,:progress=>0, :week_no=>week_n)
+        s=State.new
+        s.robot_id=robot.id
+        s.task_id=self.if
+        s.progress=0
+        s.week_no=week_n
+        s.save
+        #State.create(:robot_id=>robot.id, :task_id=>self.id, :progress=>0, :week_no=>week_n)
       end
     end
   end
